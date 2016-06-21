@@ -1,0 +1,104 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard</title>
+  <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="jquery.eeyellow.Timeline.css" />
+
+
+  <style type="text/css">
+    body {
+      font-family: 'Roboto';
+      background-color: #fafafa;
+    }
+
+    .container {
+      margin-top: 150px;
+    }
+    .title {
+      font-family: Montserrat, sans-serif;
+      font-size: 39px;
+      line-height: 100px;
+      text-align: center;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+  <h1 class="title">Dashboard</h1>
+  <div class="container" ng-app="app">
+<!--     <h3 style="text-align: center">Compare</h3>
+    <form class="form-inline">
+    <div class="form-group" id="names" class="">
+      <label for="names">Select Exercise:</label>
+    </div> 
+    <div class="form-group toggle_date" id="date_start">
+      <label for="names">Select Date:</label>
+    </div> 
+    <div class="form-group toggle_date" id="date_end">
+      <label for="names">Select Dates:</label>
+    </div> 
+    </form> -->
+    <h3 style="text-align: center">Timeline</h3>
+    <div class="row" ng-controller="timelineController">
+      <div class="col-md-12">
+        <div class="VivaTimeline">
+          <dl ng-repeat="archive in archives"> 
+            <dt>{{archive.month}}</dt>
+            <div ng-repeat="video in archive.videos | orderBy:'time'">
+              <dd ng-class-odd="'pos-left clearfix'" ng-class-even="'pos-right clearfix'">
+                <div class="circ"></div>
+                <div class="time">{{prettyTime(video.time)}}</div>
+                <div class="events">
+                  <div class="events-header">{{ video.name }}</div>
+                  <div class="events-body">
+                    <div class="row"> <video ng-src="{{video.videoURL}}" controls width="100%"></video> </div>
+                  </div>
+                </div>
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lockr/0.8.4/lockr.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/lodash/4.13.1/lodash.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+  <script src="http://code.jquery.com/jquery-1.12.3.min.js"></script>
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <!-- <script type="text/javascript" src="jquery.eeyellow.Timeline.js"></script> -->
+  <script type="text/javascript">
+    // $(document).ready(function() {
+    //   $('.VivaTimeline').vivaTimeline({
+    //     // carousel: true,
+    //     // carouselTime: 3000
+    //   });
+    // });
+    // var sessions = Lockr.get("sessions");
+    // var sessionsByName = _.groupBy(sessions, "name")
+    // var names = _.uniq(_.keys(sessionsByName));
+
+
+    // var sessionsByMonth = _.keyBy(sessions, "name")
+    // sessions.map(function(session){
+
+    // })
+    (function(angular) {
+      angular.module('app', []).controller('timelineController', function($scope) {
+        var archive = Lockr.get("archive");
+        $scope.prettyTime = function prettyTime(time) {
+          return time.toLocaleString();
+        };
+        $scope.archive = archive;
+      });
+      })(window.angular);
+  </script>
+</body>
+
+</html>
