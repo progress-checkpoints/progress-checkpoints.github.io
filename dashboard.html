@@ -92,8 +92,7 @@
       angular.module('app', []).config(function($sceDelegateProvider) {
         $sceDelegateProvider.resourceUrlWhitelist([
           'self',
-          'http://harshspace.eastus.cloudapp.azure.com/**',
-          'https://harshspace.eastus.cloudapp.azure.com/**',
+          'https://harshspace.eastus.cloudapp.azure.com/**'
         ]);
       }).controller('timelineController', function($scope) {
         var archive_map = _.groupBy(Lockr.get("sessions", []), "month");
