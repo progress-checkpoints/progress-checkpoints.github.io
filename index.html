@@ -210,12 +210,12 @@
       formData.append(fileType + '-filename', fileName);
       formData.append(fileType + '-blob', blob);
       callback('Uploading ' + fileType + ' recording to server.');
-      makeXMLHttpRequest('http://harshspace.eastus.cloudapp.azure.com/save.php', formData, function(progress) {
+      makeXMLHttpRequest('https://harshspace.eastus.cloudapp.azure.com/save.php', formData, function(progress) {
         if (progress !== 'upload-ended') {
           callback(progress);
           return;
         }
-        var initialURL = 'http://harshspace.eastus.cloudapp.azure.com/uploads/';
+        var initialURL = 'https://harshspace.eastus.cloudapp.azure.com/uploads/';
         var month = moment().format('MMMM YYYY');
         Lockr.sadd("order", month); //pushed to the end
         Lockr.sadd("sessions", {
