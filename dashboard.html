@@ -7,6 +7,7 @@
   <title>Dashboard</title>
   <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://www.videogular.com/styles/themes/default/latest/videogular.css">
   <link rel="stylesheet" type="text/css" href="jquery.eeyellow.Timeline.css" />
 
 
@@ -49,15 +50,15 @@
       <div class="col-md-12">
         <div class="VivaTimeline">
           <dl ng-repeat="archive in archives"> 
-            <dt>{{archive.month}}</dt>
-            <div ng-repeat="video in archive.videos | orderBy:'time'">
+            <dt>{{archive[0]}}</dt>
+            <div ng-repeat="video in archive[1] | orderBy:'-time'">
               <dd ng-class-odd="'pos-left clearfix'" ng-class-even="'pos-right clearfix'">
                 <div class="circ"></div>
                 <div class="time">{{prettyTime(video.time)}}</div>
                 <div class="events">
                   <div class="events-header">{{ video.name }}</div>
                   <div class="events-body">
-                    <div class="row"> <video ng-src="{{video.videoURL}}" controls width="100%"></video> </div>
+                    <video ng-src="{{video.videoURL}}" controls width="100%"></video>
                   </div>
                 </div>
               </dd>
@@ -72,7 +73,8 @@
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
   <script src="http://code.jquery.com/jquery-1.12.3.min.js"></script>
   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <!-- <script type="text/javascript" src="jquery.eeyellow.Timeline.js"></script> -->
+  <script src="http://static.videogular.com/scripts/videogular/latest/videogular.js"></script>
+  <script src="http://static.videogular.com/scripts/controls/latest/vg-controls.js"></script>
   <script type="text/javascript">
     // $(document).ready(function() {
     //   $('.VivaTimeline').vivaTimeline({
@@ -90,12 +92,19 @@
 
     // })
     (function(angular) {
-      angular.module('app', []).controller('timelineController', function($scope) {
-        var archive = Lockr.get("archive");
+      angular.module('app', []).config(function($sceDelegateProvider) {
+        $sceDelegateProvider.resourceUrlWhitelist([
+          'self',
+          'http://harshspace.eastus.cloudapp.azure.com/**'
+        ]);
+      }).controller('timelineController', function($scope) {
+        var archive_map = _.groupBy(Lockr.get("sessions", []), "month");
+        var order = Lockr.get("order", []);
+        var archives = _.reduce(order, function(acc, o){ acc.push([o,archive_map[o]]); return acc;}, []);
         $scope.prettyTime = function prettyTime(time) {
-          return time.toLocaleString();
+          return (new Date(time)).toLocaleString();
         };
-        $scope.archive = archive;
+        $scope.archives = archives;
       });
       })(window.angular);
   </script>
