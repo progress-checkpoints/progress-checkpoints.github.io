@@ -5,9 +5,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dashboard</title>
-  <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <link rel="stylesheet" href="http://www.videogular.com/styles/themes/default/latest/videogular.css">
+  <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="jquery.eeyellow.Timeline.css" />
 
 
@@ -70,11 +69,9 @@
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lockr/0.8.4/lockr.min.js"></script>
   <script src="https://cdn.jsdelivr.net/lodash/4.13.1/lodash.min.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
-  <script src="http://code.jquery.com/jquery-1.12.3.min.js"></script>
-  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  <script src="http://static.videogular.com/scripts/videogular/latest/videogular.js"></script>
-  <script src="http://static.videogular.com/scripts/controls/latest/vg-controls.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+  <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script type="text/javascript">
     // $(document).ready(function() {
     //   $('.VivaTimeline').vivaTimeline({
@@ -95,7 +92,8 @@
       angular.module('app', []).config(function($sceDelegateProvider) {
         $sceDelegateProvider.resourceUrlWhitelist([
           'self',
-          'http://harshspace.eastus.cloudapp.azure.com/**'
+          'http://harshspace.eastus.cloudapp.azure.com/**',
+          'https://harshspace.eastus.cloudapp.azure.com/**',
         ]);
       }).controller('timelineController', function($scope) {
         var archive_map = _.groupBy(Lockr.get("sessions", []), "month");
