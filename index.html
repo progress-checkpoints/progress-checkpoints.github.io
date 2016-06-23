@@ -188,16 +188,16 @@
 
     function uploadToServer(recordRTC, callback) {
       var fileName = (Math.random() * 1000).toString().replace('.', '');
-      $.ajax({
-        type: "POST",
-        url: "img.php",
-        data: {
-          imgBase64: poster,
-          fileName = fileName + ".png"
-        }
-      }).done(function(o) {
-        console.log('saved');
-      });
+      // $.ajax({
+      //   type: "POST",
+      //   url: "img.php",
+      //   data: {
+      //     imgBase64: poster,
+      //     fileName: fileName + ".png"
+      //   }
+      // }).done(function(o) {
+      //   console.log('saved');
+      // });
       var blob = recordRTC instanceof Blob ? recordRTC : recordRTC.blob;
       var fileType = blob.type.split('/')[0] || 'audio';
       if (fileType === 'audio') {
